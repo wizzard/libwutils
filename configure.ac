@@ -1,0 +1,24 @@
+AC_INIT([libwutils], [0.1], [paul.ionkin@gmail.com])
+AC_CONFIG_SRCDIR([src])
+
+AC_CONFIG_MACRO_DIR([m4])
+AM_INIT_AUTOMAKE 
+AC_CONFIG_HEADERS([config.h]) 
+
+AC_CANONICAL_HOST
+
+AM_PROG_CC_C_O
+AC_PROG_SED
+AC_PROG_INSTALL
+AC_PROG_LN_S
+PKG_PROG_PKG_CONFIG
+
+AC_PROG_LIBTOOL
+
+PKG_CHECK_MODULES([DEPS], [glib-2.0 >= 2.32.1 openssl >= 0.9.4 libevent >= 2.0])
+
+AC_CONFIG_FILES([Makefile
+    src/Makefile
+    test/Makefile
+])
+AC_OUTPUT
