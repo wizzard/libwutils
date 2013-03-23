@@ -1,10 +1,12 @@
 AC_INIT([libwutils], [0.1], [paul.ionkin@gmail.com])
+AC_PREREQ(2.59)
 AC_CONFIG_SRCDIR([src])
 
 AC_CONFIG_MACRO_DIR([m4])
 AM_INIT_AUTOMAKE 
 AC_CONFIG_HEADERS([config.h]) 
 
+AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
 
 AM_PROG_CC_C_O
