@@ -17,6 +17,9 @@ PKG_PROG_PKG_CONFIG
 
 AC_PROG_LIBTOOL
 
+AC_CHECK_SIZEOF(long long)
+AC_CHECK_SIZEOF(__int64)
+
 PKG_CHECK_MODULES([DEPS], [glib-2.0 >= 2.32.1 openssl >= 0.9.4 libevent >= 2.0])
 
 AC_CONFIG_FILES([Makefile

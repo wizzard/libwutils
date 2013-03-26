@@ -102,10 +102,15 @@ gint uri_get_port (const struct evhttp_uri *uri);
 gchar *get_random_string (size_t len, gboolean readable);
 gboolean get_md5_sum (const gchar *buf, size_t len, gchar **md5str, gchar **md5b);
 gchar *get_base64 (const gchar *buf, size_t len);
+gchar *str_remove_quotes (gchar *str);
 
 // file utils
 // remove directory tree
 int utils_del_tree (const gchar *path);
 
+// get min / max of integer types
+#define type_bits(t) ((t) (sizeof(t) * (CHAR_BIT)))
+#define int_max(t) ((t) (~ ((t) (((t) 1) << ((t)type_bits(t) - 1)))))
+#define int_min(t) ((t) (( (t) 1) << ((t)type_bits(t) - 1)))
 
 #endif
