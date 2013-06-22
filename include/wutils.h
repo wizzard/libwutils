@@ -17,7 +17,9 @@
 #ifndef _W_UTILS_H_
 #define _W_UTILS_H_
 
+#ifndef _XOPEN_SOURCE
 #define _XOPEN_SOURCE
+#endif
 #ifndef _BSD_SOURCE
 #define _BSD_SOURCE
 #endif
@@ -26,7 +28,12 @@
 #define _GNU_SOURCE
 #endif
 
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+
 #include <glib.h>
+#include <glib/gprintf.h>
 #include <event2/http.h>
 #include <event2/http_struct.h>
 #include <openssl/engine.h>
@@ -97,6 +104,7 @@ gboolean conf_set_node_change_cb (ConfData *conf, const gchar *path, ConfNodeCha
 // libevent utils
 gboolean uri_is_https (const struct evhttp_uri *uri);
 gint uri_get_port (const struct evhttp_uri *uri);
+const gchar *http_find_header (const struct evkeyvalq *headers, const gchar *key);
 
 // string_utils
 gchar *get_random_string (size_t len, gboolean readable);
@@ -107,6 +115,9 @@ gchar *str_remove_quotes (gchar *str);
 // file utils
 // remove directory tree
 int utils_del_tree (const gchar *path);
+
+// sys utils
+int wutils_daemonize (void);
 
 // get min / max of integer types
 #define type_bits(t) ((t) (sizeof(t) * (CHAR_BIT)))

@@ -50,3 +50,11 @@ gint uri_get_port (const struct evhttp_uri *uri)
 
     return port;
 }
+
+const gchar *http_find_header (const struct evkeyvalq *headers, const gchar *key)
+{
+    if (!headers || !key)
+        return NULL;
+
+    return evhttp_find_header (headers, key);
+}
