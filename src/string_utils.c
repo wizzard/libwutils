@@ -106,3 +106,14 @@ gchar *str_remove_quotes (gchar *str)
 
     return str;
 }
+
+void hex_to_str (char * out, const uint8_t * sha1_digest)
+{
+    const uint8_t * in = sha1_digest;
+    const uint8_t * end = in + SHA_DIGEST_LENGTH;
+
+    while (in != end)
+        out += snprintf (out, 4, "%02x", (unsigned int)*in++);
+    *out = '\0';
+}
+

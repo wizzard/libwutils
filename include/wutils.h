@@ -31,6 +31,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <unistd.h>
 
 #include <glib.h>
 #include <glib/gprintf.h>
@@ -111,6 +112,7 @@ gchar *get_random_string (size_t len, gboolean readable);
 gboolean get_md5_sum (const gchar *buf, size_t len, gchar **md5str, gchar **md5b);
 gchar *get_base64 (const gchar *buf, size_t len);
 gchar *str_remove_quotes (gchar *str);
+void hex_to_str (char * out, const uint8_t * sha1_digest);
 
 // file utils
 // remove directory tree
