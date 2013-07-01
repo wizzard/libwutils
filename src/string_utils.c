@@ -107,13 +107,44 @@ gchar *str_remove_quotes (gchar *str)
     return str;
 }
 
-void hex_to_str (char * out, const uint8_t * sha1_digest)
+// 2 * SHA_DIGEST_LENGTH + 1
+void sha1_to_hexstr (gchar *out, const uint8_t *sha1)
 {
-    const uint8_t * in = sha1_digest;
+    int i;
+    static const char hex[] = "0123456789abcdef";
+
+    for (i=0; i<20; ++i) {
+        const unsigned int val = *sha1++;
+        *out++ = hex[val >> 4];
+        *out++ = hex[val & 0xf];
+    }
+
+    *out = '\0';
+}
+
+void hexstr_to_sha1 (uint8_t *out, const char *in)
+{
+    int i;
+    static const char hex[] = "0123456789abcdef";
+
+    for (i=0; i<20; ++i) {
+        const int hi = strchr (hex, g_ascii_tolower (*in++)) - hex;
+        const int lo = strchr (hex, g_ascii_tolower (*in++)) - hex;
+        *out++ = (uint8_t)((hi<<4) | lo);
+    }
+}
+
+void escape_sha1 (char *out, const uint8_t *sha1)
+{
+    const uint8_t * in = sha1;
     const uint8_t * end = in + SHA_DIGEST_LENGTH;
 
     while (in != end)
-        out += snprintf (out, 4, "%02x", (unsigned int)*in++);
+        if (g_ascii_isalnum (*in))
+            *out++ = (char) *in++;
+        else
+            out += g_snprintf (out, 4, "%%%02x", (unsigned int)*in++);
+
     *out = '\0';
 }
 

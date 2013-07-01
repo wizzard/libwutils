@@ -112,11 +112,15 @@ gchar *get_random_string (size_t len, gboolean readable);
 gboolean get_md5_sum (const gchar *buf, size_t len, gchar **md5str, gchar **md5b);
 gchar *get_base64 (const gchar *buf, size_t len);
 gchar *str_remove_quotes (gchar *str);
-void hex_to_str (char * out, const uint8_t * sha1_digest);
+
+void sha1_to_hexstr (gchar *out, const uint8_t *sha1);
+void hexstr_to_sha1 (uint8_t *out, const char *in);
+void escape_sha1 (char * out, const uint8_t *sha1);
 
 // file utils
 // remove directory tree
 int utils_del_tree (const gchar *path);
+gboolean dir_exists_and_writable (const gchar *path);
 
 // sys utils
 int wutils_daemonize (void);
